@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -428,6 +429,16 @@ public class CardDaoImpl extends AbstractHelperDaoImpl<Card, Integer> implements
             e.printStackTrace();
             throw new RuntimeException(e);
         }
+    }
+
+    public long getNewLearnedCardCount(Category filterCategory) {
+        Calendar calendar = new GregorianCalendar();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        Date startOfToDay = calendar.getTime();
+        return getNewLearnedCardCount(filterCategory, startOfToDay, new Date());
     }
 
     public long getNewLearnedCardCount(Category filterCategory, Date startDate, Date endDate) {
